@@ -1,0 +1,132 @@
+:root {
+    --bg-color: black;
+    --terminal-color: rgb(30, 40, 60);
+    --secondary-terminal-color: rgb(25, 35, 55);
+    --flash-color: white;
+    --main-color: #a9c8d8;
+}
+
+html {
+    height: 99%;
+}
+
+.selectDisable {
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+body {
+    background-color: var(--bg-color);
+    height: 100%;
+    overflow: hidden;
+}
+
+main {
+    position: relative;
+    background: linear-gradient(var(--terminal-color), var(--secondary-terminal-color));
+    width: 80%;
+    height: 100%;
+    margin: auto;
+    display: table;
+    overflow: hidden;
+}
+
+main.off {
+    background: none;
+}
+
+main.on {
+    animation: 0.2s step-end main-turned-on;
+}
+
+@keyframes main-turned-on {
+    0% { background: none;; }
+    100% { background: linear-gradient(var(--terminal-color), var(--secondary-terminal-color)); }
+}
+
+#scanlines {
+    animation: 0.1s linear 0s infinite alternate flickering;
+}
+
+@keyframes flickering {
+    from { filter: opacity(100%); }
+    to {  filter: opacity(95%); }
+}
+
+#content {
+    padding-left: 10%;
+    padding-right: 10%;
+
+    color: var(--main-color);
+    text-shadow: 0 0 7px var(--main-color), 0 0 25px var(--main-color), 0 0 40px var(--main-color);
+    display: table-cell;
+    vertical-align: middle;
+}
+
+P {
+    font-family: VT323;
+    pointer-events: none;
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+    white-space:pre;
+}
+
+p.centered {
+    text-align: center;
+}
+
+
+#content.off {
+    display: none;
+}
+
+#content.on {
+    animation: 0.2s step-end content-turned-on;
+}
+
+@keyframes content-turned-on {
+    0% { color: var(--bg-color); text-shadow: 0 0 0; }
+    100% { color: var(--main-color); text-shadow: 0 0 10px var(--main-color); }
+}
+
+img {
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#screen-flash {
+    background-color: var(--flash-color);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#screen-flash.off {
+    animation: 0.2s ease-in-out screen-flash-off;
+
+}
+
+@keyframes screen-flash-off {
+    0% { width: 78%; min-height: 90%; }
+    50% { width: 78%; min-height: 1%; }
+    100% { width: 0; min-height: 0; }
+}
+
+#screen-flash.on {
+    animation: 0.2s ease-in-out screen-flash-on;
+}
+
+@keyframes screen-flash-on {
+    0% { width: 0; min-height: 0; }
+    50% { width: 78%; min-height: 1%; }
+    100% { width: 78%; min-height: 90%; }
+}
