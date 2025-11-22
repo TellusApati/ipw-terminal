@@ -298,7 +298,6 @@ const renderAnimation = (content) => {
 
     renderFrame(ps, 0);
     setTimeout(()=>{ipwIntro.play()}, 900);
-    console.log("hi");
     
 }
 
@@ -307,7 +306,16 @@ const renderFrame = (ps, currentFrame) => {
     for (i = 0; i < ps.length; i ++) {
         ps[i].innerHTML = logoAnimation[currentFrame][i].replace(/,/g, " ");
     }
-    if (framesLeft == 0) return;
+    if (framesLeft == 0) {
+        
+        setTimeout(()=>{
+            ps.forEach(element => {
+                element.classList.remove("centered");
+            });
+            renderKey(content);
+        }, 100);
+        return
+    };
     framesLeft--;
     setTimeout(()=>{renderFrame(ps, (currentFrame+1)%logoAnimation.length);}, 300);
 }
